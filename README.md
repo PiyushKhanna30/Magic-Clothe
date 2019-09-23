@@ -1,18 +1,17 @@
 # Magic-Clothe
 Have you heard of "Adrishya Choga" or "invisibility cloak" in Harry Potter movies. Magic Clothe does same with the color range of your choice.
- 
+
 ![example.gif](example.gif)
 
 
 Recording video key points : 
 --------------------------
-> record for atleast 10 seconds just background in beginning of video.
-> then place object and use cloth of which lower and upper bounds are set.
+1. Record for atleast 10 seconds just background in beginning of video.
+2. Then place object and use cloth of which lower and upper bounds are set.
 
 Working of project :
 ------------------
-1.During working of program first the background is saved as 
-background.
+1.During working of program first the background is saved as background.
 
 2.Now after object is placed and cloth placed over it,the color is segmented out and named as mask1(white for cloth area and black for rest).
 
@@ -24,6 +23,6 @@ background.
 
 6.Now we add them both to get the final resultant image.
 
-  
+
      
 

@@ -23,6 +23,7 @@ Working of project :
 
 6.Now we add them both to get the final resultant image.
 
+![background.png](background.png)  ![object.png](object.png)  ![magic.png](magic.png)
 
      
 

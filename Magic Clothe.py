@@ -1,23 +1,32 @@
 import cv2
 import numpy as np
-cap=cv2.VideoCapture("test.mp4")										#start reading video
+cap=cv2.VideoCapture(0)										#start reading video
 
 for i in range(60):														#saving background 
 	_,background=cap.read()
 	if ( _==False):														#if video not yet started to be read
 		continue
-	background=cv2.resize(background,(512,512))							#resizing video's image to standard size
+	background = np.flip(background,axis=1)
+	# background=cv2.resize(background,(512,512))							#resizing video's image to standard size
 
 while(cap.isOpened()):													#if video is being read
 	_,img=cap.read()
 	if (_==False):														#at end of video _ is set to false and thus end automatically
 		break
-	img=cv2.resize(img,(512,512))
+	img = np.flip(img,axis=1)
+	# img=cv2.resize(img,(512,512))
 	hsv=cv2.cvtColor(img,cv2.COLOR_BGR2HSV)								#converting image to hsv for easier color detection and segmentation
-	lower_bound=np.array([155,60,65])									#lower bound for color to be segmented
-	upper_bound=np.array([180,255,255])									#upper bound for color to be segmented
-	mask1=cv2.inRange(hsv,lower_bound,upper_bound)						#mask1 returns white area for color to be removed elsewhere is black
+	
+	lower_red = np.array([0,120,50])
+	upper_red = np.array([10,255,255])								#upper bound for color to be segmented
+	mask1=cv2.inRange(hsv,lower_red,upper_red)						#mask1 returns white area for color to be removed elsewhere is black
 
+	lower_red = np.array([170,120,70])
+	upper_red = np.array([180,255,255])
+	mask2 = cv2.inRange(hsv,lower_red,upper_red)
+
+	mask1 = mask1+mask2
+	
 	kernel=np.ones((3,3),np.uint8)										#kernel for erosion(Erodes away the boundaries of foreground object) & dilation(Increases the object area) 
 	mask1=cv2.morphologyEx(mask1,cv2.MORPH_OPEN,kernel,iterations=2)	#erosion then dilation
 	mask1=cv2.dilate(mask1,kernel,iterations=1)							#dilation
